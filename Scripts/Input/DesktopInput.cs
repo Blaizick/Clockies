@@ -5,6 +5,9 @@ namespace Clockies
     public class DesktopInput
     {
         public InputSystem_Actions actions;
+
+        public Vector2 mousePos;
+
         public void Init()
         {
             actions = new();
@@ -12,7 +15,7 @@ namespace Clockies
         }
         public void Update()
         {
-            Vector2 mousePos = actions.Main.MousePosition.ReadValue<Vector2>();
+            mousePos = actions.Main.MousePosition.ReadValue<Vector2>();
 
             SetTooltipPos(mousePos, Vars.Instance.ui.tooltip.root);
             SetTooltipPos(mousePos, Vars.Instance.ui.priceTooltip.root);

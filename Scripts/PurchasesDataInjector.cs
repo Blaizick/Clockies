@@ -6,26 +6,24 @@ namespace Clockies
 {
     public class PurchasesDataInjector : MonoBehaviour
     {
-        public PurchaseData laborWorkers;
-        public PurchaseData basements;
+        public PurchaseData clockMaker;
+        public PurchaseData garageProduction;
         public PurchaseData factory;
-        public PurchaseData mafia;
-        public PurchaseData country;
-        public PurchaseData competitorExecutionSquad;
-        public PurchaseData slaves;
+        public PurchaseData office;
+        public PurchaseData bank;
+        public PurchaseData factoryTown;
         public PurchaseData molecularReassemler;
         public PurchaseData planetDuplicator;
 
 
         public void Init()
         {
-            InjectPurchase(Purchases.LaborWorkers, laborWorkers);
-            InjectPurchase(Purchases.Basements, basements);
+            InjectPurchase(Purchases.ClockMaker, clockMaker);
+            InjectPurchase(Purchases.GarageProduction, garageProduction);
             InjectPurchase(Purchases.Factory, factory);
-            InjectPurchase(Purchases.Mafia, mafia);
-            InjectPurchase(Purchases.Country, country);
-            InjectPurchase(Purchases.CompetitorsExecutionSquad, competitorExecutionSquad);
-            InjectPurchase(Purchases.Slaves, slaves);
+            InjectPurchase(Purchases.Office, office);
+            InjectPurchase(Purchases.Bank, bank);
+            InjectPurchase(Purchases.FactoryTown, factoryTown);
             InjectPurchase(Purchases.MolecularReassemler, molecularReassemler);
             InjectPurchase(Purchases.PlanetDuplicator, planetDuplicator);
         }
@@ -44,13 +42,12 @@ namespace Clockies
 
     public static class Purchases
     {
-        public static Purchase LaborWorkers { get; set; }
-        public static Purchase Basements { get; set; }
+        public static Purchase ClockMaker { get; set; }
+        public static Purchase GarageProduction { get; set; }
         public static Purchase Factory { get; set; }
-        public static Purchase Mafia { get; set; }
-        public static Purchase Country { get; set; }
-        public static Purchase CompetitorsExecutionSquad { get; set; }
-        public static Purchase Slaves { get; set; }
+        public static Purchase Office { get; set; }
+        public static Purchase Bank { get; set; }
+        public static Purchase FactoryTown { get; set; }
         public static Purchase MolecularReassemler { get; set; }
         public static Purchase PlanetDuplicator { get; set; }
 
@@ -60,35 +57,35 @@ namespace Clockies
         {
             All = new();
 
-            LaborWorkers = Purchase.Default;
-            LaborWorkers.StartPrice = 20;
-            LaborWorkers.RawIncome = 0.1f;
-            LaborWorkers.Name = () =>
+            ClockMaker = Purchase.Default;
+            ClockMaker.StartPrice = 100;
+            ClockMaker.RawIncome = 1f;
+            ClockMaker.Name = () =>
             {
-                return "Labor Workers";
+                return "Clock Maker";
             };
-            LaborWorkers.Description = () =>
+            ClockMaker.Description = () =>
             {
-                return "Ordinary workers need to be paid a lot of money, how good it is that there is a cheap alternative";
+                return "Knows how to make clocks";
             };
-            LaborWorkers.ClocksToUnlock = 0;
+            ClockMaker.ClocksToUnlock = 0;
 
-            Basements = Purchase.Default;
-            Basements.StartPrice = 250;
-            Basements.RawIncome = 1f;
-            Basements.Name = () =>
+            GarageProduction = Purchase.Default;
+            GarageProduction.StartPrice = 500;
+            GarageProduction.RawIncome = 5f;
+            GarageProduction.Name = () =>
             {
-                return "Basements";
+                return "Garage Production";
             };
-            Basements.Description = () =>
+            GarageProduction.Description = () =>
             {
-                return "Room for expansion and our new employees.";
+                return "Local production unit";
             };
-            Basements.ClocksToUnlock = 100;
+            GarageProduction.ClocksToUnlock = 300;
 
             Factory = Purchase.Default;
-            Factory.StartPrice = 3000;
-            Factory.RawIncome = 25f;
+            Factory.StartPrice = 2000;
+            Factory.RawIncome = 20f;
             Factory.Name = () =>
             {
                 return "Factory";
@@ -97,63 +94,50 @@ namespace Clockies
             {
                 return "Produces a large number of clocks";
             };
-            Factory.ClocksToUnlock = 1000;
+            Factory.ClocksToUnlock = 1700;
 
-            Mafia = Purchase.Default;
-            Mafia.StartPrice = 20000;
-            Mafia.RawIncome = 200f;
-            Mafia.Name = () =>
+            Office = Purchase.Default;
+            Office.StartPrice = 8000;
+            Office.RawIncome = 80f;
+            Office.Name = () =>
             {
-                return "Mafia";
+                return "Office";
             };
-            Mafia.Description = () =>
+            Office.Description = () =>
             {
-                return "It seems that competitors have started to interfere with us";
+                return "A bunch of workers are working on the clocks";
             };
-            Mafia.ClocksToUnlock = 10000;
+            Office.ClocksToUnlock = 7000;
 
-            Country = Purchase.Default;
-            Country.StartPrice = 100000;
-            Country.RawIncome = 1000f;
-            Country.Name = () =>
+            Bank = Purchase.Default;
+            Bank.StartPrice = 20000;
+            Bank.RawIncome = 200f;
+            Bank.Name = () =>
             {
-                return "Country";
+                return "Bank";
             };
-            Country.Description = () =>
+            Bank.Description = () =>
             {
-                return "Country of patriotic workers";
+                return "Uses clocks as currency";
             };
-            Country.ClocksToUnlock = 50000;
+            Bank.ClocksToUnlock = 16000;
 
-            CompetitorsExecutionSquad = Purchase.Default;
-            CompetitorsExecutionSquad.StartPrice = 100000;
-            CompetitorsExecutionSquad.RawIncome = 1000f;
-            CompetitorsExecutionSquad.Name = () =>
+            FactoryTown = Purchase.Default;
+            FactoryTown.StartPrice = 45000;
+            FactoryTown.RawIncome = 450f;
+            FactoryTown.Name = () =>
             {
-                return "Competitors Execution Squad";
+                return "Factory-Town";
             };
-            CompetitorsExecutionSquad.Description = () =>
+            FactoryTown.Description = () =>
             {
-                return "It's time to deal with them once and for all";
+                return "Factory, but so huge that a whole city was built around it";
             };
-            CompetitorsExecutionSquad.ClocksToUnlock = 50000;
-
-            Slaves = Purchase.Default;
-            Slaves.StartPrice = 2000000;
-            Slaves.RawIncome = 30000f;
-            Slaves.Name = () =>
-            {
-                return "Slaves";
-            };
-            Slaves.Description = () =>
-            {
-                return "Why pay for work if you don't have to?";
-            };
-            Slaves.ClocksToUnlock = 1000000;
+            FactoryTown.ClocksToUnlock = 40000;
 
             MolecularReassemler = Purchase.Default;
-            MolecularReassemler.StartPrice = 30000000;
-            MolecularReassemler.RawIncome = 4000000f;
+            MolecularReassemler.StartPrice = 80000;
+            MolecularReassemler.RawIncome = 800f;
             MolecularReassemler.Name = () =>
             {
                 return "Molecular Reassembler";
@@ -162,11 +146,11 @@ namespace Clockies
             {
                 return "Reassembles arbitrary molecules into clocks";
             };
-            MolecularReassemler.ClocksToUnlock = 20000000;
+            MolecularReassemler.ClocksToUnlock = 70000;
 
             PlanetDuplicator = Purchase.Default;
-            PlanetDuplicator.StartPrice = 400000000;
-            PlanetDuplicator.RawIncome = 50000000f;
+            PlanetDuplicator.StartPrice = 140000;
+            PlanetDuplicator.RawIncome = 140f;
             PlanetDuplicator.Name = () =>
             {
                 return "Planet Duplicator";
@@ -175,21 +159,25 @@ namespace Clockies
             {
                 return "Creates an exact copy of our planet";
             };
-            PlanetDuplicator.ClocksToUnlock = 300000000;
+            PlanetDuplicator.ClocksToUnlock = 120000;
 
 
-            All.Add(LaborWorkers);
-            All.Add(Basements);
+            All.Add(ClockMaker);
+            All.Add(GarageProduction);
             All.Add(Factory);
-            All.Add(Mafia);
-            All.Add(Country);
-            All.Add(CompetitorsExecutionSquad);
-            All.Add(Slaves);
+            All.Add(Office);
+            All.Add(FactoryTown);
+            All.Add(Bank);
             All.Add(MolecularReassemler);
             All.Add(PlanetDuplicator);
         }
 
         public static void Reset()
+        {
+            Init();
+        }
+
+        public static void Restart()
         {
             Init();
         }
@@ -215,7 +203,7 @@ namespace Clockies
         {
             get
             {
-                return (int)(StartPrice * Mathf.Pow(PriceMultiplier, Bought + 1));
+                return (int)(StartPrice * Mathf.Pow(PriceMultiplier, Bought));
             }
         }
         public float Income

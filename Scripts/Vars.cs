@@ -73,6 +73,20 @@ namespace Clockies
             ui.Reset();
         }
 
+        public void Restart()
+        {
+            Purchases.Restart();
+
+            clocksManager.Restart();
+            incomeManager.Restart();
+            clicksManager.Restart();
+            purchaseManager.Restart();
+            unlockManager.Restart();
+
+            ui.Restart();
+        }
+
+
         public void Update()
         {
             incomeManager.Update();

@@ -21,7 +21,19 @@ namespace Clockies
         {
             foreach (var instance in purchases.Values)
             {
-                Destroy(instance);
+                Destroy(instance.gameObject);
+            }
+
+            purchases.Clear();
+
+            _Update();
+        }
+
+        public void Restart()
+        {
+            foreach (var instance in purchases.Values)
+            {
+                Destroy(instance.gameObject);
             }
 
             purchases.Clear();

@@ -15,8 +15,14 @@ namespace Clockies
 
         public PurchasePanel purchasesPanel;
 
-        public TextMeshProUGUI rebirthsText;
+        public TextMeshProUGUI rebirthText;
         public Button rebirthButton;
+
+        public Button restartButton;
+
+        public ConfirmDialogue confirmDialogue;
+
+        public ClickTexts clickTexts;
 
         public GameObject winPanel;
 
@@ -27,9 +33,23 @@ namespace Clockies
             {
                 if (Vars.Instance.rebirthsManager.CanReborn())
                 {
-                    Vars.Instance.rebirthsManager.Reborn();
+                    confirmDialogue.SetUp("Reborn", "Warning! You will lose all of your progres.", "OK", "Cancel", () =>
+                    {
+                        Vars.Instance.rebirthsManager.Reborn();
+                    }, null);
+                    confirmDialogue.Show();
                 }
             });
+
+            restartButton.onClick.AddListener(() =>
+            {
+                confirmDialogue.SetUp("Restart", "Warning! You will lose all of your progres and do not goin anything.", "OK", "Cancel", () =>
+                {
+                    Vars.Instance.Restart();
+                }, null);
+                confirmDialogue.Show();
+            });
+
 
             tooltip.Init();
             priceTooltip.Init();
@@ -37,6 +57,8 @@ namespace Clockies
             purchasesPanel.Init();
 
             clock.Init();
+
+            confirmDialogue.Init();
 
             winPanel.SetActive(false);
         }
@@ -46,12 +68,17 @@ namespace Clockies
             purchasesPanel.Reset();
         }
 
+        public void Restart()
+        {
+            purchasesPanel.Restart();
+        }
+
         public void _Update()
         {
-            clocksText.text = Mathf.Round(Vars.Instance.clocksManager.Clocks).ToString();
-            incomeText.text = Vars.Instance.incomeManager.GetIncome().ToString();
+            clocksText.text = FormatUtils.ClocksFToStringI(Vars.Instance.clocksManager.Clocks);
+            incomeText.text = FormatUtils.ClocksFToStringF(Vars.Instance.incomeManager.GetIncome());
 
-            rebirthsText.text = Vars.Instance.rebirthsManager.Rebirths.ToString();
+            rebirthText.text = Vars.Instance.rebirthsManager.Rebirths.ToString();
 
             if (Vars.Instance.state == GameState.Win && !winPanel.activeInHierarchy)
             {

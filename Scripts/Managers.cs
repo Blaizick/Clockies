@@ -16,23 +16,36 @@ namespace Clockies
         {
             Clocks = 0;
         }
+
+        public void Restart()
+        {
+            Clocks = 0;
+        }
     }
 
     public class IncomeManager
     {
         public float Multiplier { get; set; }
+        public float SaveMultiplier { get; set; }
         public float OverrideMultiplier { get; set; }
 
         public void Init()
         {
             OverrideMultiplier = 1f;
-            Multiplier = OverrideMultiplier;
+            SaveMultiplier = OverrideMultiplier;
+            Multiplier = SaveMultiplier;
         }
 
         public void Reset()
         {
+            Multiplier = SaveMultiplier;
+        }
+
+        public void Restart()
+        {
             Multiplier = OverrideMultiplier;
         }
+
 
         public void Update()
         {
@@ -62,6 +75,11 @@ namespace Clockies
 
         }
 
+        public void Restart()
+        {
+
+        }
+
         public void Buy(Purchase purchase)
         {
             Vars.Instance.clocksManager.Clocks -= purchase.Price;
@@ -72,23 +90,36 @@ namespace Clockies
     public class ClicksManager
     {
         public float OverrideFromIncome { get; set; }
+        public float SaveFromIncome { get; set; }
         public float FromIncome { get; set; }
+
         public float OverrideMultiplier { get; set; }
+        public float SaveMultiplier { get; set; }
         public float Multiplier { get; set; }
 
 
         public void Init()
         {
-            OverrideFromIncome = 0f;
+            OverrideFromIncome = 0.1f;
             OverrideMultiplier = 1f;
-            FromIncome = OverrideFromIncome;
-            OverrideMultiplier = OverrideMultiplier;
+
+            SaveFromIncome = OverrideFromIncome;
+            SaveMultiplier = OverrideMultiplier;
+
+            FromIncome = SaveFromIncome;
+            Multiplier = SaveMultiplier;
         }
 
         public void Reset()
         {
+            FromIncome = SaveFromIncome;
+            Multiplier = SaveMultiplier;
+        }
+
+        public void Restart()
+        {
             FromIncome = OverrideFromIncome;
-            OverrideMultiplier = OverrideMultiplier;
+            Multiplier = OverrideMultiplier;
         }
 
         public void Click()
@@ -98,6 +129,7 @@ namespace Clockies
 
         public float GetClocksOnClick()
         {
+            // Debug.Log($"Income: {Vars.Instance.incomeManager.GetIncome()}, FromIncome: {FromIncome}, Multiplier: {Multiplier}");
             return (Vars.Instance.incomeManager.GetIncome() * FromIncome * Multiplier) + 1f;
         }
     }
@@ -105,6 +137,8 @@ namespace Clockies
     public class RebirthsManager
     {
         public int Rebirths { get; set; }
+        public int OverrideRebirths { get; private set; }
+
         public const int neededRebirths = 2;
         public const float firstRebirthPrice = 100000f;
 
@@ -113,7 +147,13 @@ namespace Clockies
 
         public void Init()
         {
+            OverrideRebirths = 0;
+            Rebirths = OverrideRebirths;
+        }
 
+        public void Restart()
+        {
+            Rebirths = OverrideRebirths;
         }
 
         public bool CanReborn()
@@ -128,10 +168,10 @@ namespace Clockies
 
         public void Reborn()
         {
-            Vars.Instance.incomeManager.OverrideMultiplier += incomeMultiplier;
+            Vars.Instance.incomeManager.SaveMultiplier += incomeMultiplier;
             Vars.Instance.incomeManager.Multiplier += incomeMultiplier;
 
-            Vars.Instance.clicksManager.OverrideFromIncome += clicksFromIncome;
+            Vars.Instance.clicksManager.SaveFromIncome += clicksFromIncome;
             Vars.Instance.clicksManager.FromIncome += clicksFromIncome;
 
             Rebirths++;
@@ -162,6 +202,11 @@ namespace Clockies
         }
 
         public void Reset()
+        {
+            Purchases.Clear();
+        }
+
+        public void Restart()
         {
             Purchases.Clear();
         }
