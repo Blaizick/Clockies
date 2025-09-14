@@ -18,6 +18,8 @@ namespace Clockies
 
         [NonSerialized] public Purchase purchase;
 
+        public TooltipPerformer tooltipPerformer;
+
         public bool PointerOver { get; private set; }
 
         public void Init()

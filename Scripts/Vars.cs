@@ -15,10 +15,13 @@ namespace Clockies
         public PurchaseManager purchaseManager;
         public RebirthsManager rebirthsManager;
         public UnlockManager unlockManager;
+        public BuffsManager buffsManager;
 
-        public PurchasesDataInjector purchasesDataInjector;
+        public Content content;
 
         public DesktopInput input;
+
+        public SceneInjection sceneInjection;
 
 
         [NonSerialized] public GameState state;
@@ -35,8 +38,7 @@ namespace Clockies
             state = GameState.Running;
 
 
-            Purchases.Init();
-            purchasesDataInjector.Init();
+            content.Init();
 
 
             clocksManager = new();
@@ -45,6 +47,7 @@ namespace Clockies
             purchaseManager = new();
             rebirthsManager = new();
             unlockManager = new();
+            buffsManager = new();
 
             input = new();
 
@@ -54,6 +57,7 @@ namespace Clockies
             purchaseManager.Init();
             rebirthsManager.Init();
             unlockManager.Init();
+            buffsManager.Init();
 
             input.Init();
 
@@ -69,6 +73,7 @@ namespace Clockies
             clicksManager.Reset();
             purchaseManager.Reset();
             unlockManager.Reset();
+            buffsManager.Reset();
 
             ui.Reset();
         }
@@ -82,15 +87,16 @@ namespace Clockies
             clicksManager.Restart();
             purchaseManager.Restart();
             unlockManager.Restart();
+            buffsManager.Restart();
 
             ui.Restart();
         }
-
 
         public void Update()
         {
             incomeManager.Update();
             unlockManager.Update();
+            buffsManager.Update();
 
             input.Update();
 

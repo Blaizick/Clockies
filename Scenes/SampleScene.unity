@@ -1186,6 +1186,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 591125652}
   m_CullTransparentMesh: 1
+--- !u!1 &593353828
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 593353829}
+  - component: {fileID: 593353830}
+  m_Layer: 0
+  m_Name: Scene Injection
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &593353829
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 593353828}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &593353830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 593353828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b7b2393cea784c409f654c90eb08617, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Clockies.SceneInjection
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -1282,7 +1326,7 @@ GameObject:
   - component: {fileID: 644637644}
   - component: {fileID: 644637643}
   - component: {fileID: 644637642}
-  - component: {fileID: 644637641}
+  - component: {fileID: 644637645}
   m_Layer: 5
   m_Name: Restart Button
   m_TagString: Untagged
@@ -1310,18 +1354,6 @@ RectTransform:
   m_AnchoredPosition: {x: -858.7, y: 11.400002}
   m_SizeDelta: {x: 175.69, y: -51.78}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &644637641
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 644637639}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d4a28697df9b254bb786c55e405e700, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Clockies.RebirthTooltipPerformer
 --- !u!114 &644637642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1404,6 +1436,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 644637639}
   m_CullTransparentMesh: 1
+--- !u!114 &644637645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 644637639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4b8183a4f9cdde4d8475cb43619e94a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Clockies.TooltipPerformer
 --- !u!1 &671970363
 GameObject:
   m_ObjectHideFlags: 0
@@ -1504,6 +1548,7 @@ RectTransform:
   - {fileID: 2000426159}
   - {fileID: 141853537}
   - {fileID: 1697907082}
+  - {fileID: 1896012398}
   - {fileID: 1922952648}
   - {fileID: 2032781837}
   - {fileID: 1251919725}
@@ -1566,7 +1611,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 0.39215687}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1721,6 +1766,8 @@ GameObject:
   m_Component:
   - component: {fileID: 739587023}
   - component: {fileID: 739587024}
+  - component: {fileID: 739587025}
+  - component: {fileID: 739587026}
   m_Layer: 0
   m_Name: Content
   m_TagString: Untagged
@@ -1771,6 +1818,34 @@ MonoBehaviour:
     sprite: {fileID: 0}
   planetDuplicator:
     sprite: {fileID: 0}
+--- !u!114 &739587025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 739587022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38e37107b2da65b46ae72788e4d8f918, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Clockies.BuffsDataInjector
+  atomicClock:
+    sprite: {fileID: 0}
+--- !u!114 &739587026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 739587022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03bb0fca43675474ba5c094f24e358b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Clockies.Content
+  purchasesDataInjector: {fileID: 739587024}
+  buffsDataInjector: {fileID: 739587025}
 --- !u!1 &750516239
 GameObject:
   m_ObjectHideFlags: 0
@@ -1917,12 +1992,16 @@ MonoBehaviour:
   tooltip: {fileID: 2032781840}
   priceTooltip: {fileID: 1922952651}
   purchasesPanel: {fileID: 1749066485}
-  rebirthText: {fileID: 1632863442}
   rebirthButton: {fileID: 1001492068}
+  rebirthButtonPerformer: {fileID: 1001492071}
+  rebirthText: {fileID: 1632863442}
+  rebirthTextPerformer: {fileID: 1632863445}
   restartButton: {fileID: 644637642}
+  restartPerformer: {fileID: 644637645}
   confirmDialogue: {fileID: 1251919728}
   clickTexts: {fileID: 1697907083}
   winPanel: {fileID: 27166141}
+  buffsDisplayer: {fileID: 1896012399}
 --- !u!4 &781238336
 Transform:
   m_ObjectHideFlags: 0
@@ -2380,7 +2459,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1001492066}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d4a28697df9b254bb786c55e405e700, type: 3}
+  m_Script: {fileID: 11500000, guid: b4b8183a4f9cdde4d8475cb43619e94a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Clockies.RebirthTooltipPerformer
 --- !u!1 &1040766308
@@ -3116,7 +3195,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Clockies.Vars
   ui: {fileID: 781238335}
-  purchasesDataInjector: {fileID: 739587024}
+  content: {fileID: 739587026}
+  sceneInjection: {fileID: 593353830}
 --- !u!4 &1337320988
 Transform:
   m_ObjectHideFlags: 0
@@ -3818,7 +3898,7 @@ GameObject:
   - component: {fileID: 1632863441}
   - component: {fileID: 1632863443}
   - component: {fileID: 1632863442}
-  - component: {fileID: 1632863444}
+  - component: {fileID: 1632863445}
   m_Layer: 5
   m_Name: Rebirth Text
   m_TagString: Untagged
@@ -3944,7 +4024,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1632863440}
   m_CullTransparentMesh: 1
---- !u!114 &1632863444
+--- !u!114 &1632863445
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3953,9 +4033,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1632863440}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d4a28697df9b254bb786c55e405e700, type: 3}
+  m_Script: {fileID: 11500000, guid: b4b8183a4f9cdde4d8475cb43619e94a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Clockies.RebirthTooltipPerformer
+  m_EditorClassIdentifier: Assembly-CSharp::Clockies.TooltipPerformer
 --- !u!1 &1654149128
 GameObject:
   m_ObjectHideFlags: 0
@@ -4492,6 +4572,56 @@ MonoBehaviour:
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!1 &1896012397
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1896012398}
+  - component: {fileID: 1896012399}
+  m_Layer: 5
+  m_Name: Buffs Displayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1896012398
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1896012397}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 671970367}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1896012399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1896012397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1357fecfaeeff41408db6deea7da84ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Clockies.BuffsDisplayer
+  prefab: {fileID: 7258178492031115783, guid: 300dd7fb812e6734ebbfaf8675535b90, type: 3}
+  root: {fileID: 1896012398}
 --- !u!1 &1904014458
 GameObject:
   m_ObjectHideFlags: 0
@@ -5346,3 +5476,4 @@ SceneRoots:
   - {fileID: 1337320988}
   - {fileID: 781238336}
   - {fileID: 739587023}
+  - {fileID: 593353829}

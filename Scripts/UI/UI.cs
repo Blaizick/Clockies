@@ -10,21 +10,35 @@ namespace Clockies
         public TextMeshProUGUI clocksText;
         public TextMeshProUGUI incomeText;
 
+        [Space]
+
         public Tooltip tooltip;
         public PriceTooltip priceTooltip;
 
+        [Space]
+
         public PurchasePanel purchasesPanel;
 
-        public TextMeshProUGUI rebirthText;
+        [Space]
+
         public Button rebirthButton;
+        public TooltipPerformer rebirthButtonPerformer;
+
+        public TextMeshProUGUI rebirthText;
+        public TooltipPerformer rebirthTextPerformer;
+
+        [Space]
 
         public Button restartButton;
+        public TooltipPerformer restartPerformer;
 
         public ConfirmDialogue confirmDialogue;
 
         public ClickTexts clickTexts;
 
         public GameObject winPanel;
+
+        public BuffsDisplayer buffsDisplayer;
 
 
         public void Init()
@@ -33,17 +47,21 @@ namespace Clockies
             {
                 if (Vars.Instance.rebirthsManager.CanReborn())
                 {
-                    confirmDialogue.SetUp("Reborn", "Warning! You will lose all of your progres.", "OK", "Cancel", () =>
+                    confirmDialogue.SetUp("Rebirth", "Warning! You will lose all progress", "OK", "Cancel", () =>
                     {
                         Vars.Instance.rebirthsManager.Reborn();
                     }, null);
                     confirmDialogue.Show();
                 }
             });
+            rebirthButtonPerformer.data = NamedItems.Rebirth;
+            rebirthTextPerformer.data = NamedItems.Rebirth;
+
+            restartPerformer.data = NamedItems.Restart;
 
             restartButton.onClick.AddListener(() =>
             {
-                confirmDialogue.SetUp("Restart", "Warning! You will lose all of your progres and do not goin anything.", "OK", "Cancel", () =>
+                confirmDialogue.SetUp("Restart", "Warning! You will lose all progress and will not receive any benefits", "OK", "Cancel", () =>
                 {
                     Vars.Instance.Restart();
                 }, null);
@@ -55,6 +73,7 @@ namespace Clockies
             priceTooltip.Init();
 
             purchasesPanel.Init();
+            buffsDisplayer.Init();
 
             clock.Init();
 
@@ -75,8 +94,8 @@ namespace Clockies
 
         public void _Update()
         {
-            clocksText.text = FormatUtils.ClocksFToStringI(Vars.Instance.clocksManager.Clocks);
-            incomeText.text = FormatUtils.ClocksFToStringF(Vars.Instance.incomeManager.GetIncome());
+            clocksText.text = FormatUtils.ClocksToStringI(Vars.Instance.clocksManager.Clocks);
+            incomeText.text = FormatUtils.ClocksToStringF(Vars.Instance.incomeManager.GetUndelayedIncome());
 
             rebirthText.text = Vars.Instance.rebirthsManager.Rebirths.ToString();
 
@@ -90,6 +109,7 @@ namespace Clockies
             }
 
             purchasesPanel._Update();
+            buffsDisplayer._Update();
         }
     }
 }

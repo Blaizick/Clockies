@@ -271,7 +271,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 0.39215687}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -341,6 +341,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3893463611339007191}
   - component: {fileID: 3010583632417269189}
+  - component: {fileID: 775482295216470186}
   m_Layer: 5
   m_Name: Purchase Container
   m_TagString: Untagged
@@ -387,6 +388,19 @@ MonoBehaviour:
   priceText: {fileID: 2498395706862943789}
   incomeText: {fileID: 7721597964279571003}
   boughtText: {fileID: 6658647967874215754}
+  tooltipPerformer: {fileID: 775482295216470186}
+--- !u!114 &775482295216470186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5877776016178828685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4b8183a4f9cdde4d8475cb43619e94a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Clockies.TooltipPerformer
 --- !u!1 &6743619137740062796
 GameObject:
   m_ObjectHideFlags: 0

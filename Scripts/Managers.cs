@@ -1,4 +1,9 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.Mathematics;
+using UnityEditor.Build;
 using UnityEngine;
 
 namespace Clockies
@@ -29,11 +34,15 @@ namespace Clockies
         public float SaveMultiplier { get; set; }
         public float OverrideMultiplier { get; set; }
 
+        public float DelayedMultiplier { get; set; }
+
         public void Init()
         {
             OverrideMultiplier = 1f;
             SaveMultiplier = OverrideMultiplier;
             Multiplier = SaveMultiplier;
+
+            DelayedMultiplier = 0f;
         }
 
         public void Reset()
@@ -53,6 +62,16 @@ namespace Clockies
         }
 
         public float GetIncome()
+        {
+            float income = 0f;
+            foreach (var purchase in Purchases.All)
+            {
+                income += purchase.TotalIncome;
+            }
+            return income * Multiplier * (DelayedMultiplier + 1);
+        }
+
+        public float GetUndelayedIncome()
         {
             float income = 0f;
             foreach (var purchase in Purchases.All)
@@ -96,7 +115,6 @@ namespace Clockies
         public float OverrideMultiplier { get; set; }
         public float SaveMultiplier { get; set; }
         public float Multiplier { get; set; }
-
 
         public void Init()
         {
@@ -220,6 +238,134 @@ namespace Clockies
                     Purchases.Add(purchase);
                 }
             }
+        }
+    }
+
+    public class BuffsManager
+    {
+        public class DisplayedBuff
+        {
+            public float destroyDelay;
+            public bool destroyed;
+            public Buff buff;
+        }
+
+        public List<DisplayedBuff> displayedBuffs = new();
+
+        public float SpawnDelay { get; private set; }
+        public float VanishDelay { get; private set; }
+        private float curSpawnDelay = 0f;
+
+        // private bool deapply = true;
+        private Unity.Mathematics.Random random;
+
+        public void Init()
+        {
+            random = new((uint)Mathf.Max(Time.time, 1f));
+
+            SpawnDelay = 90f;
+            VanishDelay = 10f;
+            curSpawnDelay = SpawnDelay;
+        }
+
+        public void Reset()
+        {
+            // deapply = false;
+
+            // foreach (var buff in displayedBuffs)
+            // {
+            //     buff.destroyed = true;
+            // }
+
+            // displayedBuffs.Clear();
+
+            // curSpawnDelay = SpawnDelay;
+        }
+        public void Restart()
+        {
+            // deapply = false;
+
+            // foreach (var buff in displayedBuffs)
+            // {
+            //     buff.destroyed = true;
+            // }
+
+            // displayedBuffs.Clear();
+
+            // curSpawnDelay = SpawnDelay;
+        }
+
+        public void Update()
+        {
+            for (int i = 0; i < displayedBuffs.Count; i++)
+            {
+                var buff = displayedBuffs[i];
+
+                if (buff.destroyDelay <= 0)
+                {
+                    buff.destroyed = true;
+                    displayedBuffs.RemoveAt(i);
+                    i--;
+                }
+
+                buff.destroyDelay -= Time.deltaTime;
+            }
+
+            if (curSpawnDelay <= 0)
+            {
+                curSpawnDelay = SpawnDelay;
+                SpawnBuff(GetRandomBuff());
+            }
+            curSpawnDelay -= Time.deltaTime;
+        }
+
+        public Buff GetRandomBuff()
+        {
+            float randomValue = random.NextFloat();
+
+            float curChance = 0f;
+
+            foreach (var buff in Buffs.All)
+            {
+                curChance += buff.Chance;
+
+                if (curChance >= randomValue)
+                {
+                    return buff;
+                }
+            }
+
+            return Buffs.All.First();
+        }
+
+        public void SpawnBuff(Buff buff)
+        {
+            DisplayedBuff displayedBuff = new DisplayedBuff()
+            {
+                destroyDelay = VanishDelay,
+                buff = buff,
+                destroyed = false
+            };
+            displayedBuffs.Add(displayedBuff);
+
+            // deapply = true;
+        }
+
+        public void ApplyBuff(DisplayedBuff buff)
+        {
+            // deapply = false;
+            Vars.Instance.sceneInjection._StartCoroutine(ApplyBuffCoroutine(buff));
+        }
+        private IEnumerator ApplyBuffCoroutine(DisplayedBuff buff)
+        {
+            displayedBuffs.Remove(buff);
+            buff.destroyed = true;
+
+            Vars.Instance.incomeManager.DelayedMultiplier += buff.buff.IncomeMultiplier;
+
+            yield return new WaitForSeconds(buff.buff.Duration);
+
+            Vars.Instance.incomeManager.DelayedMultiplier -= buff.buff.IncomeMultiplier;
         }
     }
 }

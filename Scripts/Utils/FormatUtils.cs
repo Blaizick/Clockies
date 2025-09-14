@@ -6,17 +6,17 @@ namespace Clockies
 {
     public static class FormatUtils
     {
-        public static string ClocksFToStringF(float clocks)
+        public static string ClocksToStringF(float clocks)
         {
             if (clocks >= 1000000)
             {
                 float millions = clocks / 1000f;
-                return $"{millions} millions";
+                return $"{millions} million";
             }
             else if (clocks >= 1000)
             {
                 float thousands = clocks / 1000f;
-                return $"{thousands} thousands";
+                return $"{thousands} thousand";
             }
             else
             {
@@ -24,17 +24,17 @@ namespace Clockies
             }
         }
 
-        public static string ClocksFToStringI(float clocks)
+        public static string ClocksToStringI(float clocks)
         {
             if (clocks >= 1000000)
             {
-                float millions = Mathf.FloorToInt(clocks / 1000f);
-                return $"{millions} millions";
+                float millions = clocks / 1000f;
+                return $"{millions} million";
             }
             else if (clocks >= 1000)
             {
-                float thousands = Mathf.FloorToInt(clocks / 1000f);
-                return $"{thousands} thousands";
+                float thousands = clocks / 1000f;
+                return $"{thousands} thousand";
             }
             else
             {

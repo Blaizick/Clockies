@@ -183,7 +183,7 @@ namespace Clockies
         }
     }
 
-    public class Purchase
+    public class Purchase : INamedItem
     {
         public Func<string> Name { get; set; }
         public Func<string> Description { get; set; }

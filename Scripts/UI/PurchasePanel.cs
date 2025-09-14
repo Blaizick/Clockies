@@ -57,6 +57,7 @@ namespace Clockies
             GameObject instance = Instantiate(purchasePrefab, root);
             PurchaseContainer script = instance.GetComponent<PurchaseContainer>();
 
+            script.tooltipPerformer.data = purchase;
             script.purchase = purchase;
             script.Init();
 
