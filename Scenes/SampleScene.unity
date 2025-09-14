@@ -1803,21 +1803,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Clockies.PurchasesDataInjector
   clockMaker:
-    sprite: {fileID: 0}
-  garageProduction:
-    sprite: {fileID: 0}
+    sprite: {fileID: 21300000, guid: 62606bf0d5fed48498c3c26c3d22ec82, type: 3}
+  basement:
+    sprite: {fileID: 21300000, guid: 6077feb7d4a08a74cb1a76daaa1e95d3, type: 3}
   factory:
-    sprite: {fileID: 0}
+    sprite: {fileID: 21300000, guid: c08343f34b4e38b48987c19db59d80ce, type: 3}
   office:
-    sprite: {fileID: 0}
+    sprite: {fileID: 21300000, guid: 0763b129f3ce4b344a8e83dd09b1a60a, type: 3}
   bank:
-    sprite: {fileID: 0}
+    sprite: {fileID: 21300000, guid: b09aba26b820e054ebd00e8edfcf2990, type: 3}
   factoryTown:
-    sprite: {fileID: 0}
+    sprite: {fileID: 21300000, guid: e8a0c0e3333513446a8743d0fd8a9b9e, type: 3}
   molecularReassemler:
-    sprite: {fileID: 0}
+    sprite: {fileID: 21300000, guid: f22f414be8549d24a91b7642f00e736c, type: 3}
   planetDuplicator:
-    sprite: {fileID: 0}
+    sprite: {fileID: 21300000, guid: d0f1f9dcb9fda164ea01f59dc9b69b15, type: 3}
 --- !u!114 &739587025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1831,7 +1831,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Clockies.BuffsDataInjector
   atomicClock:
-    sprite: {fileID: 0}
+    sprite: {fileID: 21300000, guid: cd76dabd0f977db48845b9367df3a5d3, type: 3}
 --- !u!114 &739587026
 MonoBehaviour:
   m_ObjectHideFlags: 0

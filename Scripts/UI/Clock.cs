@@ -16,8 +16,11 @@ namespace Clockies
 
             button.onClick.AddListener(() =>
             {
-                Vars.Instance.ui.clickTexts.Spawn(FormatUtils.ClocksToStringI(Vars.Instance.clicksManager.GetClocksOnClick()), Vars.Instance.input.mousePos);
-                Vars.Instance.clicksManager.Click();
+                Vector2 clickPos = Vars.Instance.input.mousePos;
+                clickPos.y += Vars.Instance.ui.clickTexts.PrefabHeight / 2f;
+                Vars.Instance.ui.clickTexts.Spawn(FormatUtils.ClocksToStringI(Vars.Instance.modules.clicksManager.GetClocksOnClick()), clickPos);
+
+                Vars.Instance.modules.clicksManager.Click();
 
                 if (!AnimatingNow)
                 {

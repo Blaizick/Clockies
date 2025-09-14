@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -5,9 +6,11 @@ namespace Clockies
 {
     public class SceneInjection : MonoBehaviour
     {
-        public void _StartCoroutine(IEnumerator routine)
+        public Action onApplicationQuit;
+
+        private void OnApplicationQuit()
         {
-            StartCoroutine(routine);
+            onApplicationQuit?.Invoke();
         }
     }
 }

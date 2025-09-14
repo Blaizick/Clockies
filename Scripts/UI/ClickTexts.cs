@@ -9,6 +9,13 @@ namespace Clockies
         public GameObject prefab;
 
         public RectTransform root;
+        public float PrefabHeight
+        {
+            get
+            {
+                return prefab.GetComponent<RectTransform>().sizeDelta.y;
+            }
+        }
 
         public const float animateTime = 2f;
 

@@ -7,7 +7,7 @@ namespace Clockies
     public class PurchasesDataInjector : MonoBehaviour
     {
         public PurchaseData clockMaker;
-        public PurchaseData garageProduction;
+        public PurchaseData basement;
         public PurchaseData factory;
         public PurchaseData office;
         public PurchaseData bank;
@@ -19,7 +19,7 @@ namespace Clockies
         public void Init()
         {
             InjectPurchase(Purchases.ClockMaker, clockMaker);
-            InjectPurchase(Purchases.GarageProduction, garageProduction);
+            InjectPurchase(Purchases.Basement, basement);
             InjectPurchase(Purchases.Factory, factory);
             InjectPurchase(Purchases.Office, office);
             InjectPurchase(Purchases.Bank, bank);
@@ -43,7 +43,7 @@ namespace Clockies
     public static class Purchases
     {
         public static Purchase ClockMaker { get; set; }
-        public static Purchase GarageProduction { get; set; }
+        public static Purchase Basement { get; set; }
         public static Purchase Factory { get; set; }
         public static Purchase Office { get; set; }
         public static Purchase Bank { get; set; }
@@ -70,18 +70,18 @@ namespace Clockies
             };
             ClockMaker.ClocksToUnlock = 0;
 
-            GarageProduction = Purchase.Default;
-            GarageProduction.StartPrice = 500;
-            GarageProduction.RawIncome = 5f;
-            GarageProduction.Name = () =>
+            Basement = Purchase.Default;
+            Basement.StartPrice = 2000;
+            Basement.RawIncome = 20f;
+            Basement.Name = () =>
             {
-                return "Garage Production";
+                return "Basement";
             };
-            GarageProduction.Description = () =>
+            Basement.Description = () =>
             {
                 return "Local production unit";
             };
-            GarageProduction.ClocksToUnlock = 300;
+            Basement.ClocksToUnlock = 1500;
 
             Factory = Purchase.Default;
             Factory.StartPrice = 2000;
@@ -163,7 +163,7 @@ namespace Clockies
 
 
             All.Add(ClockMaker);
-            All.Add(GarageProduction);
+            All.Add(Basement);
             All.Add(Factory);
             All.Add(Office);
             All.Add(FactoryTown);

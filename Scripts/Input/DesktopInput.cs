@@ -39,14 +39,28 @@ namespace Clockies
             var halfSize = root.sizeDelta / 2f;
 
             float rightBound = position.x + root.sizeDelta.x;
-            if (rightBound > Screen.width)
+            float bottomBound = position.y - root.sizeDelta.y;
+
+            float x, y;
+
+            if (rightBound > Camera.main.pixelWidth)
             {
-                root.anchoredPosition = new Vector2(position.x - halfSize.x, position.y - halfSize.y);
+                x = position.x - halfSize.x;
             }
             else
             {
-                root.anchoredPosition = new Vector2(position.x + halfSize.x, position.y - halfSize.y);
+                x = position.x + halfSize.x;
             }
+            if (bottomBound < 0)
+            {
+                y = position.y + halfSize.y;
+            }
+            else
+            {
+                y = position.y - halfSize.y;
+            }
+
+            root.anchoredPosition = new Vector2(x, y);
         }
     }
 }

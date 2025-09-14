@@ -43,7 +43,7 @@ namespace Clockies
 
         public void _Update()
         {
-            foreach (var unlocked in Vars.Instance.unlockManager.Purchases)
+            foreach (var unlocked in Vars.Instance.modules.unlockManager.Purchases)
             {
                 if (!purchases.ContainsKey(unlocked))
                 {

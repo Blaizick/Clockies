@@ -1,9 +1,6 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Mathematics;
-using UnityEditor.Build;
 using UnityEngine;
 
 namespace Clockies
@@ -58,7 +55,7 @@ namespace Clockies
 
         public void Update()
         {
-            Vars.Instance.clocksManager.Clocks += GetIncome() * Time.deltaTime;
+            Vars.Instance.modules.clocksManager.Clocks += GetIncome() * Time.deltaTime;
         }
 
         public float GetIncome()
@@ -101,7 +98,7 @@ namespace Clockies
 
         public void Buy(Purchase purchase)
         {
-            Vars.Instance.clocksManager.Clocks -= purchase.Price;
+            Vars.Instance.modules.clocksManager.Clocks -= purchase.Price;
             purchase.Bought++;
         }
     }
@@ -142,13 +139,13 @@ namespace Clockies
 
         public void Click()
         {
-            Vars.Instance.clocksManager.Clocks += GetClocksOnClick();
+            Vars.Instance.modules.clocksManager.Clocks += GetClocksOnClick();
         }
 
         public float GetClocksOnClick()
         {
             // Debug.Log($"Income: {Vars.Instance.incomeManager.GetIncome()}, FromIncome: {FromIncome}, Multiplier: {Multiplier}");
-            return (Vars.Instance.incomeManager.GetIncome() * FromIncome * Multiplier) + 1f;
+            return (Vars.Instance.modules.incomeManager.GetIncome() * FromIncome * Multiplier) + 1f;
         }
     }
 
@@ -160,8 +157,8 @@ namespace Clockies
         public const int neededRebirths = 2;
         public const float firstRebirthPrice = 100000f;
 
-        public const float incomeMultiplier = 0.2f;
-        public const float clicksFromIncome = 0.1f;
+        public const float incomeMultiplierUp = 0.2f;
+        public const float clicksFromIncomeUp = 0.1f;
 
         public void Init()
         {
@@ -176,7 +173,7 @@ namespace Clockies
 
         public bool CanReborn()
         {
-            return Rebirths < neededRebirths && GetRebithPrice() < Vars.Instance.clocksManager.Clocks;
+            return Rebirths < neededRebirths && GetRebithPrice() < Vars.Instance.modules.clocksManager.Clocks;
         }
 
         public float GetRebithPrice()
@@ -186,11 +183,11 @@ namespace Clockies
 
         public void Reborn()
         {
-            Vars.Instance.incomeManager.SaveMultiplier += incomeMultiplier;
-            Vars.Instance.incomeManager.Multiplier += incomeMultiplier;
+            Vars.Instance.modules.incomeManager.SaveMultiplier += incomeMultiplierUp;
+            Vars.Instance.modules.incomeManager.Multiplier += incomeMultiplierUp;
 
-            Vars.Instance.clicksManager.SaveFromIncome += clicksFromIncome;
-            Vars.Instance.clicksManager.FromIncome += clicksFromIncome;
+            Vars.Instance.modules.clicksManager.SaveFromIncome += clicksFromIncomeUp;
+            Vars.Instance.modules.clicksManager.FromIncome += clicksFromIncomeUp;
 
             Rebirths++;
 
@@ -233,7 +230,7 @@ namespace Clockies
         {
             foreach (var purchase in Clockies.Purchases.All)
             {
-                if (Vars.Instance.clocksManager.Clocks >= purchase.ClocksToUnlock && !Purchases.Contains(purchase))
+                if (Vars.Instance.modules.clocksManager.Clocks >= purchase.ClocksToUnlock && !Purchases.Contains(purchase))
                 {
                     Purchases.Add(purchase);
                 }
@@ -354,18 +351,96 @@ namespace Clockies
         public void ApplyBuff(DisplayedBuff buff)
         {
             // deapply = false;
-            Vars.Instance.sceneInjection._StartCoroutine(ApplyBuffCoroutine(buff));
+            Vars.Instance.sceneInjection.StartCoroutine(ApplyBuffCoroutine(buff));
         }
         private IEnumerator ApplyBuffCoroutine(DisplayedBuff buff)
         {
             displayedBuffs.Remove(buff);
             buff.destroyed = true;
 
-            Vars.Instance.incomeManager.DelayedMultiplier += buff.buff.IncomeMultiplier;
+            Vars.Instance.modules.incomeManager.DelayedMultiplier += buff.buff.IncomeMultiplier;
 
             yield return new WaitForSeconds(buff.buff.Duration);
 
-            Vars.Instance.incomeManager.DelayedMultiplier -= buff.buff.IncomeMultiplier;
+            Vars.Instance.modules.incomeManager.DelayedMultiplier -= buff.buff.IncomeMultiplier;
+        }
+    }
+
+    public class SaveManager
+    {
+        public const int version = 0;
+        public float AutosaveDelay { get; set; }
+
+        public void Init()
+        {
+            Vars.Instance.sceneInjection.onApplicationQuit += Save;
+            AutosaveDelay = 10f;
+            Load();
+            StartAutosaveCycle();
+        }
+
+        public void Save()
+        {
+            PlayerPrefs.SetInt("SaveVersion", version);
+
+            for (int i = 0; i < Purchases.All.Count; i++)
+            {
+                var purchase = Purchases.All[i];
+                PlayerPrefs.SetInt($"PurchasesBought{i}", purchase.Bought);
+            }
+
+            var rebirthManager = Vars.Instance.modules.rebirthsManager;
+            PlayerPrefs.SetInt("Rebirths", rebirthManager.Rebirths);
+
+            var clicksManager = Vars.Instance.modules.clicksManager;
+            PlayerPrefs.SetFloat("ClicksFromIncome", clicksManager.SaveFromIncome);
+            PlayerPrefs.SetFloat("ClicksMultiplier", clicksManager.SaveMultiplier);
+
+            var incomeManager = Vars.Instance.modules.incomeManager;
+            PlayerPrefs.SetFloat("SaveMultiplier", incomeManager.SaveMultiplier);
+
+            var clocksManager = Vars.Instance.modules.clocksManager;
+            PlayerPrefs.SetFloat("Clocks", clocksManager.Clocks);
+        }
+        public void Load()
+        {
+            var unlockManager = Vars.Instance.modules.unlockManager;
+            for (int i = 0; i < Purchases.All.Count; i++)
+            {
+                var purchase = Purchases.All[i];
+                purchase.Bought = PlayerPrefs.GetInt($"PurchasesBought{i}", 0);
+
+                if (purchase.Bought > 0 && !unlockManager.Purchases.Contains(purchase))
+                {
+                    unlockManager.Purchases.Add(purchase);
+                }
+            }
+
+            var rebirthManager = Vars.Instance.modules.rebirthsManager;
+            rebirthManager.Rebirths = PlayerPrefs.GetInt("Rebirths", rebirthManager.Rebirths);
+
+            var clicksManager = Vars.Instance.modules.clicksManager;
+            clicksManager.SaveFromIncome = PlayerPrefs.GetFloat("ClicksFromIncome", clicksManager.SaveFromIncome);
+            clicksManager.SaveMultiplier = PlayerPrefs.GetFloat("ClicksMultiplier", clicksManager.SaveMultiplier);
+            clicksManager.FromIncome = clicksManager.SaveFromIncome;
+            clicksManager.Multiplier = clicksManager.SaveMultiplier;
+
+            var incomeManager = Vars.Instance.modules.incomeManager;
+            incomeManager.SaveMultiplier = PlayerPrefs.GetFloat("SaveMultiplier", incomeManager.SaveMultiplier);
+            incomeManager.Multiplier = incomeManager.SaveMultiplier;
+
+            var clocksManager = Vars.Instance.modules.clocksManager;
+            clocksManager.Clocks = PlayerPrefs.GetFloat("Clocks", clocksManager.Clocks);
+        }
+
+        private void StartAutosaveCycle()
+        {
+            Vars.Instance.sceneInjection.StartCoroutine(StartAutosaveCycleCoroutine());
+        }
+        private IEnumerator StartAutosaveCycleCoroutine()
+        {
+            yield return new WaitForSeconds(AutosaveDelay);
+            Save();
         }
     }
 }

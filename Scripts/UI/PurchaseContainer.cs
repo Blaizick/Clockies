@@ -26,7 +26,7 @@ namespace Clockies
         {
             button.onClick.AddListener(() =>
             {
-                Vars.Instance.purchaseManager.Buy(purchase);
+                Vars.Instance.modules.purchaseManager.Buy(purchase);
                 _Update();
             });
 

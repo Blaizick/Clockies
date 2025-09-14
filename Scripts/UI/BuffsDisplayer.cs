@@ -38,7 +38,7 @@ namespace Clockies
                 displayedBuffs.Remove(destroyBuffs.Dequeue());
             }
 
-            foreach (var buff in Vars.Instance.buffsManager.displayedBuffs)
+            foreach (var buff in Vars.Instance.modules.buffsManager.displayedBuffs)
             {
                 if (!displayedBuffs.ContainsKey(buff))
                 {
@@ -87,7 +87,7 @@ namespace Clockies
             container.button.onClick.AddListener(() =>
             {
                 DestroyBuffImmediantly(buff);
-                Vars.Instance.buffsManager.ApplyBuff(buff);
+                Vars.Instance.modules.buffsManager.ApplyBuff(buff);
             });
             container.performer.data = buff.buff;
 
@@ -99,14 +99,14 @@ namespace Clockies
             container.root.DOScale(Vector3.zero, 0.5f).OnComplete(() =>
             {
                 container.root.DOKill();
-                Destroy(container.root.gameObject);
+                Destroy(container.gameObject);
             });
         }
         public void DestroyBuffImmediantly(BuffsManager.DisplayedBuff buff)
         {
             var container = displayedBuffs[buff];
             container.root.DOKill();
-            Destroy(container.root.gameObject);
+            Destroy(container.gameObject);
         }
     }
 }

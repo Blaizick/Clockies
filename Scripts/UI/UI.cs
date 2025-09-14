@@ -45,11 +45,11 @@ namespace Clockies
         {
             rebirthButton.onClick.AddListener(() =>
             {
-                if (Vars.Instance.rebirthsManager.CanReborn())
+                if (Vars.Instance.modules.rebirthsManager.CanReborn())
                 {
                     confirmDialogue.SetUp("Rebirth", "Warning! You will lose all progress", "OK", "Cancel", () =>
                     {
-                        Vars.Instance.rebirthsManager.Reborn();
+                        Vars.Instance.modules.rebirthsManager.Reborn();
                     }, null);
                     confirmDialogue.Show();
                 }
@@ -94,10 +94,10 @@ namespace Clockies
 
         public void _Update()
         {
-            clocksText.text = FormatUtils.ClocksToStringI(Vars.Instance.clocksManager.Clocks);
-            incomeText.text = FormatUtils.ClocksToStringF(Vars.Instance.incomeManager.GetUndelayedIncome());
+            clocksText.text = FormatUtils.ClocksToStringI(Vars.Instance.modules.clocksManager.Clocks);
+            incomeText.text = FormatUtils.ClocksToStringF(Vars.Instance.modules.incomeManager.GetUndelayedIncome());
 
-            rebirthText.text = Vars.Instance.rebirthsManager.Rebirths.ToString();
+            rebirthText.text = Vars.Instance.modules.rebirthsManager.Rebirths.ToString();
 
             if (Vars.Instance.state == GameState.Win && !winPanel.activeInHierarchy)
             {

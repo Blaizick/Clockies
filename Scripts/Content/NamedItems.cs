@@ -20,7 +20,7 @@ namespace Clockies
             };
             Rebirth.Description = () =>
             {
-                RebirthsManager rebirthsManager = Vars.Instance.rebirthsManager;
+                RebirthsManager rebirthsManager = Vars.Instance.modules.rebirthsManager;
 
                 return $"If you have enough money, you can reborn, all your buildings and money will disappear but you will get bonuses {rebirthsManager.GetFormattedRebirthsBonuses()}, to win you need to reborn {RebirthsManager.neededRebirths} times, the current rebirth costs {rebirthsManager.GetRebithPrice()} hours";
             };
