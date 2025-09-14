@@ -58,8 +58,8 @@ namespace Clockies
             All = new();
 
             ClockMaker = Purchase.Default;
-            ClockMaker.StartPrice = 100;
-            ClockMaker.RawIncome = 1f;
+            ClockMaker.StartPrice = 10;
+            ClockMaker.RawIncome = 0.1f;
             ClockMaker.Name = () =>
             {
                 return "Clock Maker";
@@ -71,8 +71,8 @@ namespace Clockies
             ClockMaker.ClocksToUnlock = 0;
 
             Basement = Purchase.Default;
-            Basement.StartPrice = 2000;
-            Basement.RawIncome = 20f;
+            Basement.StartPrice = 200;
+            Basement.RawIncome = 1.75f;
             Basement.Name = () =>
             {
                 return "Basement";
@@ -81,11 +81,11 @@ namespace Clockies
             {
                 return "Local production unit";
             };
-            Basement.ClocksToUnlock = 1500;
+            Basement.ClocksToUnlock = 175;
 
             Factory = Purchase.Default;
-            Factory.StartPrice = 2000;
-            Factory.RawIncome = 20f;
+            Factory.StartPrice = 3000;
+            Factory.RawIncome = 25;
             Factory.Name = () =>
             {
                 return "Factory";
@@ -94,11 +94,11 @@ namespace Clockies
             {
                 return "Produces a large number of clocks";
             };
-            Factory.ClocksToUnlock = 1700;
+            Factory.ClocksToUnlock = 2500;
 
             Office = Purchase.Default;
-            Office.StartPrice = 8000;
-            Office.RawIncome = 80f;
+            Office.StartPrice = 40000;
+            Office.RawIncome = 300f;
             Office.Name = () =>
             {
                 return "Office";
@@ -107,11 +107,11 @@ namespace Clockies
             {
                 return "A bunch of workers are working on the clocks";
             };
-            Office.ClocksToUnlock = 7000;
+            Office.ClocksToUnlock = 35000;
 
             Bank = Purchase.Default;
-            Bank.StartPrice = 20000;
-            Bank.RawIncome = 200f;
+            Bank.StartPrice = 500000;
+            Bank.RawIncome = 40000;
             Bank.Name = () =>
             {
                 return "Bank";
@@ -120,11 +120,11 @@ namespace Clockies
             {
                 return "Uses clocks as currency";
             };
-            Bank.ClocksToUnlock = 16000;
+            Bank.ClocksToUnlock = 450000;
 
             FactoryTown = Purchase.Default;
-            FactoryTown.StartPrice = 45000;
-            FactoryTown.RawIncome = 450f;
+            FactoryTown.StartPrice = 6000000;
+            FactoryTown.RawIncome = 450000f;
             FactoryTown.Name = () =>
             {
                 return "Factory-Town";
@@ -133,11 +133,11 @@ namespace Clockies
             {
                 return "Factory, but so huge that a whole city was built around it";
             };
-            FactoryTown.ClocksToUnlock = 40000;
+            FactoryTown.ClocksToUnlock = 580000;
 
             MolecularReassemler = Purchase.Default;
-            MolecularReassemler.StartPrice = 80000;
-            MolecularReassemler.RawIncome = 800f;
+            MolecularReassemler.StartPrice = 70000000;
+            MolecularReassemler.RawIncome = 500000f;
             MolecularReassemler.Name = () =>
             {
                 return "Molecular Reassembler";
@@ -146,11 +146,11 @@ namespace Clockies
             {
                 return "Reassembles arbitrary molecules into clocks";
             };
-            MolecularReassemler.ClocksToUnlock = 70000;
+            MolecularReassemler.ClocksToUnlock = 68000000;
 
             PlanetDuplicator = Purchase.Default;
-            PlanetDuplicator.StartPrice = 140000;
-            PlanetDuplicator.RawIncome = 140f;
+            PlanetDuplicator.StartPrice = 800000000;
+            PlanetDuplicator.RawIncome = 4800000f;
             PlanetDuplicator.Name = () =>
             {
                 return "Planet Duplicator";
@@ -159,7 +159,7 @@ namespace Clockies
             {
                 return "Creates an exact copy of our planet";
             };
-            PlanetDuplicator.ClocksToUnlock = 120000;
+            PlanetDuplicator.ClocksToUnlock = 780000000;
 
 
             All.Add(ClockMaker);
@@ -174,12 +174,18 @@ namespace Clockies
 
         public static void Reset()
         {
-            Init();
+            foreach (var puchase in All)
+            {
+                puchase.Bought = 0;
+            }
         }
 
         public static void Restart()
         {
-            Init();
+            foreach (var puchase in All)
+            {
+                puchase.Bought = 0;
+            }
         }
     }
 

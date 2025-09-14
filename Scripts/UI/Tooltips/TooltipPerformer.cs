@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -28,7 +27,6 @@ namespace Clockies
             Update();
 
             Vars.Instance.ui.tooltip.Show();
-
         }
 
         public void OnPointerExit(PointerEventData eventData)
@@ -36,6 +34,14 @@ namespace Clockies
             pointerStay = false;
 
             Vars.Instance.ui.tooltip.Hide();
+        }
+
+        public void OnDestroy()
+        {
+            if (pointerStay)
+            {
+                Vars.Instance.ui.tooltip.Hide();
+            }
         }
     }
 }

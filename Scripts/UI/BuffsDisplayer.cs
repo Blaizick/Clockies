@@ -87,6 +87,8 @@ namespace Clockies
             container.button.onClick.AddListener(() =>
             {
                 DestroyBuffImmediantly(buff);
+                displayedBuffs.Remove(buff);
+
                 Vars.Instance.modules.buffsManager.ApplyBuff(buff);
             });
             container.performer.data = buff.buff;

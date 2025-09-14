@@ -13,7 +13,7 @@ namespace Clockies
         [Space]
 
         public Tooltip tooltip;
-        public PriceTooltip priceTooltip;
+        // public PriceTooltip priceTooltip;
 
         [Space]
 
@@ -70,7 +70,7 @@ namespace Clockies
 
 
             tooltip.Init();
-            priceTooltip.Init();
+            // priceTooltip.Init();
 
             purchasesPanel.Init();
             buffsDisplayer.Init();

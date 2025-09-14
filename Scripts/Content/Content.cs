@@ -18,5 +18,15 @@ namespace Clockies
 
             NamedItems.Init();
         }
+
+        public void Restart()
+        {
+            Purchases.Restart();
+        }
+
+        public void Reset()
+        {
+            Purchases.Reset();
+        }
     }
 }

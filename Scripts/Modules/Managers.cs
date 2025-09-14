@@ -155,7 +155,7 @@ namespace Clockies
         public int OverrideRebirths { get; private set; }
 
         public const int neededRebirths = 2;
-        public const float firstRebirthPrice = 100000f;
+        public const float firstRebirthPrice = 1000000f;
 
         public const float incomeMultiplierUp = 0.2f;
         public const float clicksFromIncomeUp = 0.1f;

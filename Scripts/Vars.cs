@@ -44,7 +44,7 @@ namespace Clockies
 
         public void Reset()
         {
-            Purchases.Reset();
+            content.Reset();
 
             modules.Reset();
 
@@ -53,7 +53,7 @@ namespace Clockies
 
         public void Restart()
         {
-            Purchases.Restart();
+            content.Restart();
 
             modules.Restart();
 

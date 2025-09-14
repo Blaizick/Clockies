@@ -18,7 +18,7 @@ namespace Clockies
             mousePos = actions.Main.MousePosition.ReadValue<Vector2>();
 
             SetTooltipPos(mousePos, Vars.Instance.ui.tooltip.root);
-            SetTooltipPos(mousePos, Vars.Instance.ui.priceTooltip.root);
+            // SetTooltipPos(mousePos, Vars.Instance.ui.priceTooltip.root);
 
             //Secret combo used for debugging
             if (actions.Main.Shift.IsPressed() && actions.Main.Space.IsPressed() && actions.Main.RightArrow.IsPressed())

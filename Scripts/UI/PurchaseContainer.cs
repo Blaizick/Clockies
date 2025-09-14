@@ -1,12 +1,11 @@
 using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Clockies
 {
-    public class PurchaseContainer : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+    public class PurchaseContainer : MonoBehaviour
     {
         public Button button;
 
@@ -42,36 +41,6 @@ namespace Clockies
             priceText.text = purchase.Price.ToString();
             incomeText.text = purchase.Income.ToString();
             boughtText.text = purchase.Bought.ToString();
-
-            if (PointerOver)
-            {
-                RefreshTooltip();
-            }
-        }
-
-
-        public void OnPointerEnter(PointerEventData eventData)
-        {
-            PointerOver = true;
-
-            RefreshTooltip();
-
-            Vars.Instance.ui.priceTooltip.Show();
-        }
-        public void OnPointerExit(PointerEventData eventData)
-        {
-            PointerOver = false;
-
-            Vars.Instance.ui.priceTooltip.Hide();
-        }
-
-        public void RefreshTooltip()
-        {
-            PriceTooltip priceTooltip = Vars.Instance.ui.priceTooltip;
-
-            priceTooltip._name.text = purchase.Name();
-            priceTooltip.description.text = purchase.Description();
-            priceTooltip.price.text = purchase.Price.ToString();
         }
     }
 }
